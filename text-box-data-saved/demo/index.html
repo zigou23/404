@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>本地自动保存</title>
+<!--   https://www.xuanfengge.com/text-box-data-automatically-saved.html -->
+<!--   https://www.xuanfengge.com/demo/201308/autosave/ -->
+<style>
+.button {
+	cursor: pointer;
+   border: 1px solid #0a3c59;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #06426c;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   color: #fff;
+   }
+.button:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#3e779d));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+   }
+textarea {
+	outline: 0 none;
+	border-color: rgba(82, 168, 236, 0.8);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+</style>
+</head>
+<body>
+  <h1>文本框数据自动保存</h1>
+	<div class="demo">
+        <form name="form1" method="post" action="">
+          <textarea id="editor" style="width: 400px; height: 200px"></textarea>
+          <input type="button" class="button" value="删除" id="save">
+        </form>
+    </div>
+<script type="text/javascript">
+    var editor = document.getElementById("editor");
+    	editor.value="";
+    var UserData = {
+        userData : null,
+        name : location.hostname,
+        //this.name = "www.xuanfengge.com";
+
+        init:function(){
+            // IE7下返回true，其他浏览器返回false
+            if (!UserData.userData) {
+                try {
+                    UserData.userData = document.createElement('INPUT');
+                    UserData.userData.type = "hidden";
+                    UserData.userData.style.display = "none";
+                    UserData.userData.addBehavior ("#default#userData");
+                    document.body.appendChild(UserData.userData);
+                    var expires = new Date();
+                    expires.setDate(expires.getDate()+365);
+                    UserData.userData.expires = expires.toUTCString();
+                } catch(e) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        setItem : function(key, value) {
+            // IE7下的set
+            if(UserData.init()){
+                UserData.userData.load(UserData.name);
+                UserData.userData.setAttribute(key, value);
+                UserData.userData.save(UserData.name);
+            }
+        },
+
+        getItem : function(key) {
+          // IE7下的get
+            if(UserData.init()){
+              UserData.userData.load(UserData.name);
+              return UserData.userData.getAttribute(key)
+            }
+        },
+
+        remove : function(key) {
+            // IE7下的remove
+            if(UserData.init()){
+              UserData.userData.load(UserData.name);
+              UserData.userData.removeAttribute(key);
+              UserData.userData.save(UserData.name);
+            }
+
+        }
+    };
+
+    window.onbeforeunload=function(){
+        // 离开本页之前保存数据
+        if(!window.localStorage){
+            UserData.setItem('editor-text',editor.value);
+        }else{
+            localStorage.setItem('editor-text',editor.value);
+        }
+
+    };
+    window.onload=function(){
+        // 加载页面时判断是否有数据并加载
+        if(!window.localStorage){
+            if(UserData.getItem('editor-text')==undefined) {
+                editor.value="";
+            }else{
+                editor.value=UserData.getItem('editor-text');
+            }
+        }else{
+            if(localStorage.getItem('editor-text')!=null){
+                editor.value=localStorage.getItem('editor-text');
+            }else{
+                editor.value="";
+            }
+        }
+
+    };
+    // 点击发表时删除数据
+    document.getElementById("save").onclick=function(){
+        editor.value="";
+        if(!window.localStorage){
+            UserData.remove('editor-text');
+        }else{
+            localStorage.removeItem('editor-text');
+        }
+    };
+
+</script>
+</body>
+</html>
