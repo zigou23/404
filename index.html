@@ -53,7 +53,9 @@
     bodyBgs[4] = "linear-gradient(to left bottom, hsl(254, 100%, 85%) 0%,hsl(65, 100%, 85%) 100%)";
     bodyBgs[5] = "linear-gradient(to left bottom, hsl(204, 70%, 63%) 0%,hsl(145, 45%, 70%) 100%)";
     bodyBgs[6] = "linear-gradient(to left bottom, hsl(152, 100%, 85%) 0%,hsl(219, 100%, 85%) 100%)";
-    var randomBgIndex = Math.round(Math.random() * 6);
+    bodyBgs[7] = "linear-gradient(217deg, rgba(102,254,194,.8), rgba(255,0,0,0) 70.71%),linear-gradient(127deg, rgba(102,201,255,.8), rgba(0,255,0,0) 70.71%),linear-gradient(336deg, rgba(230,160,253,.8), rgba(0,0,255,0) 70.71%)";
+    bodyBgs[8] = "linear-gradient(0deg, rgba(102,201,255,.8), rgba(255,0,0,0) 70.71%),linear-gradient(90deg, rgba(102,254,194,.5), rgba(0,255,0,0) 70.71%),linear-gradient(180deg, rgba(211,87,254,.8), rgba(0,0,255,0) 70.71%),linear-gradient(336deg, rgba(270,198,119,.8), rgba(0,0,255,0) 70.71%)";
+    var randomBgIndex = Math.round(Math.random() * 8);
     //输出随机的背景图<style>body{background:url(' + bodyBgs[randomBgIndex] + ')top center no-repeat; background-size:cover;}</style>
     document.write('<style>body{background: ' + bodyBgs[randomBgIndex] + ' ; }</style>');
   </script>
