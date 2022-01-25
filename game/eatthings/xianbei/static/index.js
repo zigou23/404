@@ -339,14 +339,14 @@ function backBtn() {
 function shareText(score) {
     let date2 = new Date();
     deviation_time = (date2.getTime() - _date1.getTime())
-    if (deviation_time > 23000) {
-        return '倒计时多了' + ((deviation_time / 1000) - 20).toFixed(2) + "s";
-    }
+    // if (deviation_time > 23000) {
+    //     return '倒计时多了' + ((deviation_time / 1000) - 20).toFixed(2) + "s";
+    // }
     SubmitResults();
     if (score <= 49) return '逊呐';
     if (score <= 99) return '哼哼哼';
     if (score <= 149) return '你是一个一个一个';
-    if (score <= 199) return '哼哼哼啊啊啊啊啊';
+    if (score <= 1999) return '哼哼哼啊啊啊啊啊';
     return '都撅烂了罢（恼';
 }
 
