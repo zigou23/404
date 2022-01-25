@@ -122,7 +122,7 @@ function gameRestart() {
     _gameScore = 0;
     _gameOver = false;
     _gameStart = false;
-    _gameTimeNum = 200;
+    _gameTimeNum = 50;
     GameTimeLayer.innerHTML = creatTimeText(_gameTimeNum);
     countBlockSize();
     refreshGameLayer(GameLayer[0]);
@@ -344,7 +344,7 @@ function shareText(score) {
     if (score <= 49) return '叔叔很生气';
     if (score <= 99) return '你所热爱的就是你的生活';
     if (score <= 149) return '您就是蒙古上单？';
-    if (score <= 1999) return '您马什么时候4啊？';
+    if (score <= 499) return '您马什么时候4啊？';
     return '人？';
 }
 

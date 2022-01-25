@@ -124,7 +124,7 @@ function gameRestart() {
     _gameScore = 0;
     _gameOver = false;
     _gameStart = false;
-    _gameTimeNum = 200;
+    _gameTimeNum = 50;
     GameTimeLayer.innerHTML = creatTimeText(_gameTimeNum);
     countBlockSize();
     refreshGameLayer(GameLayer[0]);
@@ -346,7 +346,7 @@ function shareText(score) {
     if (score <= 49) return '逊呐';
     if (score <= 99) return '哼哼哼';
     if (score <= 149) return '你是一个一个一个';
-    if (score <= 1999) return '哼哼哼啊啊啊啊啊';
+    if (score <= 499) return '哼哼哼啊啊啊啊啊';
     return '都撅烂了罢（恼';
 }
 
