@@ -1,5 +1,5 @@
 let isDesktop = navigator['userAgent'].match(/(ipad|iphone|ipod|android|windows phone)/i) ? false : true;
-let fontunit = isDesktop ? 200 : ((window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth) / 3200) * 10;
+let fontunit = isDesktop ? 20 : ((window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth) / 320) * 10;
 document.write('<style type="text/css">' +
     'html,body {font-size:' + (fontunit < 30 ? fontunit : '30') + 'px;}' +
     (isDesktop ? '#welcome,#GameTimeLayer,#GameLayerBG,#GameScoreLayer.SHADE{position: absolute;}' :
@@ -49,7 +49,7 @@ function init() {
 }
 
 function winOpen() {
-    window.open(location.href + '?r=' + Math.random(), 'nWin', 'height=500,width=3200,toolbar=no,menubar=no,scrollbars=no');
+    window.open(location.href + '?r=' + Math.random(), 'nWin', 'height=500,width=320,toolbar=no,menubar=no,scrollbars=no');
     let opened = window.open('about:blank', '_self');
     opened.opener = null;
     opened.close();
@@ -58,7 +58,7 @@ let refreshSizeTime;
 
 function refreshSize() {
     clearTimeout(refreshSizeTime);
-    refreshSizeTime = setTimeout(_refreshSize, 2000);
+    refreshSizeTime = setTimeout(_refreshSize, 200);
 }
 
 function _refreshSize() {
@@ -223,7 +223,7 @@ function refreshGameLayer(box, loop, offset) {
             setTimeout(function () {
                 box.style.display = 'block';
             }, 100);
-        }, 2000);
+        }, 200);
     } else {
         box.y = 0;
         box.style[transform] = 'translate3D(0,' + box.y + 'px,0)';
@@ -340,7 +340,7 @@ function shareText(score) {
     let date2 = new Date();
     deviation_time = (date2.getTime() - _date1.getTime())
     if (deviation_time > 23000) {
-        return '倒计时多了' + ((deviation_time / 1000) - 200).toFixed(2) + "s";
+        return '倒计时多了' + ((deviation_time / 1000) - 20).toFixed(2) + "s";
     }
     SubmitResults();
     if (score <= 49) return '逊呐';
