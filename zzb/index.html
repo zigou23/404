@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>成绩查询</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>江苏省教育考试院 查询中心</title>
+    
+    <link href="css/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/layui.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="css/layer.css" media="all">
+</head>
+<link href="css/swiper.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<script type="text/javascript" language="JavaScript">
+    window.onload = function () {
+        var database = 890+"";
+        var catlog = 6+"";
+        if (database != 0) {
+            document.getElementById("hiddenCatlog").value = catlog;
+            document.getElementById("hiddenDatabase").value = database;
+        }
+    }
+
+
+
+    function showQry() {
+        var slt = document.forms[0].elements["database"];
+        var other = document.forms[0].elements["catlog"];
+        var othertake;
+        for (var i = 0; i < other.options.length; i++) {
+            if (true == other.options[i].selected) {
+                othertake = slt.value;
+            }
+        }
+        if (othertake == "zxks") {
+
+            window.parent.navigate("http://221.231.139.218/ChengJi/index_Query_Cj.jsp?BelongID=3&year=2009");
+        }
+        var lx;
+        for (var i = 0; i < slt.options.length; i++) {
+            if (true == slt.options[i].selected) {
+                lx = slt.value;
+            }
+        }
+        if (lx!=null&&lx!=""){
+
+
+            selectform.action="input.do";
+            selectform.target="_self";
+            selectform.submit();
+
+        }else{
+            alert("请选择需要查询的考试！")
+        }
+    }
+
+
+
+    function changeSelect(value){
+        if(value=="zxks")
+            window.open("http://221.231.139.218/ChengJi/index_Query_Cj.jsp?BelongID=3&year=2009");
+        else
+
+            window.open('select.do?cid='+value,'_self');
+    }
+
+</script>
+<!-- <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> -->
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-7953153-2");
+        pageTracker._trackPageview();
+    } catch (err) {}</script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div class="inquiry-wrapper">
+    <div class="inquiry-left">
+        <div class="guidance"><h2>查询中心</h2>
+            <p>请先选择您要查询的项目类型，</br>
+                再点击查询按钮，再根据提示进行查询操作</p>
+        </div>
+    </div>
+    <div class="inquiry-form">
+        <form class="query-criteria" name="selectform">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <select name="catlog"
+                            onchange="changeSelect(this.value);">
+                        <option value="">
+                            请选择要查询的项目类型
+                        </option>
+                        
+                            <option value="1"
+                                    >
+                                    研究生考试
+                            </option>
+                        
+                            <option value="2"
+                                    >
+                                    普通高校对口单招
+                            </option>
+                        
+                            <option value="3"
+                                    >
+                                    教师资格考试
+                            </option>
+                        
+                            <option value="5"
+                                    >
+                                    江苏省自学考试成绩
+                            </option>
+                        
+                            <option value="6"
+                                    >
+                                    普通高校专转本选拔考试
+                            </option>
+                        
+                            <option value="7"
+                                    >
+                                    全国计算机等级考试
+                            </option>
+                        
+                            <option value="8"
+                                    >
+                                    普通高校招生考试
+                            </option>
+                        
+                            <option value="9"
+                                    >
+                                    江苏省成人高考
+                            </option>
+                        
+                            <option value="10"
+                                    >
+                                    全国英语等级考试
+                            </option>
+                        
+                            <option value="11"
+                                    >
+                                    江苏省自学考试毕业证书
+                            </option>
+                        
+                            <option value="13"
+                                    >
+                                    江苏省成人学士学位英语水平考试
+                            </option>
+                        
+                            <option value="15"
+                                    >
+                                    江苏省普通高中学业水平测试
+                            </option>
+                        
+                            <option value="17"
+                                    >
+                                    江苏省书法等级考试
+                            </option>
+                        
+                            <option value="18"
+                                    >
+                                    中职学业水平考试
+                            </option>
+                        
+                            <option value="22"
+                                    >
+                                    江苏省普通高中学业水平合格性考试
+                            </option>
+                        
+                            <option value="23"
+                                    >
+                                    公开招聘工作人员笔试成绩
+                            </option>
+                        
+                            <option value="25"
+                                    >
+                                    教师资格考试成绩复核
+                            </option>
+                        
+                            <option value="27"
+                                    >
+                                    教师资格面试成绩复核
+                            </option>
+                        
+                        <option value="zxks">
+                            09年4月以前的自学考试成绩查询
+                        </option>
+
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="database">
+                        
+                    </select>
+                </div>
+                <input id="queryButton" type="button" value="查询" onclick="showQry();"/>
+            </div>
+        </form>
+        
+        
+            <div class="info" id="queryBody">
+                <div class="decoration"></div>
+                <p class="title">2022年江苏省普通高校专转本考试成绩</p>
+                <form class="layui-form" action="http://stat.jseea.cn/jseea_queryNew/query.do" method="post">
+                    
+                    
+                    
+                    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" class="title">准考证号</label>
+                        <div class="layui-input-block">
+                        <span id="sprytextfield0">
+                            <input type="text" name="0" id="0" lay-verify="title"
+                                   autocomplete="off" placeholder="请输入准考证号" class="layui-input">
+                        </span>
+                                
+                                
+                                
+                        </div>
+                        
+                        
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" class="title">身份证号</label>
+                        <div class="layui-input-block">
+                        <span id="sprytextfield2">
+                            <input type="text" name="2" id="2" lay-verify="title"
+                                   autocomplete="off" placeholder="请输入身份证号" class="layui-input">
+                        </span>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">校验码:</label>
+                            <div class="layui-input-block">
+                    <span id="sprytextfield">
+                    <input type="text" name="code" id="queryCode" lay-verify="title" autocomplete="off"
+                           placeholder="请输入校验码" class="layui-input code-input">
+                    </span>
+                                <img class="code" src='http://stat.jseea.cn/jseea_queryNew/check_code.do' onclick="location.reload();" align="middle"/>
+
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" value="db_890" name="dbName">
+                                <input type="hidden" name="catlog" id="hiddenCatlog">
+                                <input type="hidden" name="database" id="hiddenDatabase">
+                                <button type="submit" class="layui-btn" lay-submit="">确定</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重写</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+    </div>
+</div>
+</body>
+</html>
+
