@@ -137,7 +137,9 @@
 		    <p>如果不习惯或者需要自定义消耗流量数量，可以<a href="./old">→ 点我切换回旧版 ←</a>，本页面不支持自定义消耗流量数量！</p>
                 <label class="form-label">下载节点</label>
                 <div class="form-control-wrap">
-		<select  type="text" v-model="set.input"  class="form-control">
+		<select type="text" v-model="set.input" class="form-control" id="options">
+
+			<!--
 			<option value="https://i0.hdslb.com/bfs/album/6a259a872289fbf56e61876c9b8870a9868325af.jpg" selected = "selected">B站非免流 [默认]</option>
 			
 				<option value="">↓↓ 百度 ↓↓</option>
@@ -187,7 +189,23 @@
 			<option value="https://sgp-ping.vultr.com/vultr.com.100MB.bin">Vultr 100M(新加坡)</option>
 			<option value="https://nj-us-ping.vultr.com/vultr.com.100MB.bin">Vultr 100M(纽约)</option>
 			<option value="https://speedtest.tokyo2.linode.com/100MB-tokyo2.bin">Linode 100MB(日本省东京市)</option>
-			<option value="">↓↓ 如需自定义请直接在下方填写资源链接 ↓↓</option></select>
+			<option value="">↓↓ 如需自定义请直接在下方填写资源链接 ↓↓</option>-->
+			</select>
+			<script>
+				// 通过fetch请求加载option.json文件
+				fetch('./option.json')
+				  .then(response => response.json())
+				  .then(data => {
+					const selectElement = document.getElementById('options');
+					data.forEach(option => {
+					  const optionElement = document.createElement('option');
+					  optionElement.value = option.value;
+					  optionElement.textContent = option.text;
+					  selectElement.appendChild(optionElement);
+					});
+				  })
+				  .catch(error => console.error('Error loading JSON:', error));
+			  </script>
 		 <input style="" type="text" v-model="set.input" placeholder="下载链接" class="form-control" autocomplete="off">
 				</div>
             </div>
