@@ -1,102 +1,111 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>网站地址索引</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="zigou23">
-    <meta property="og:description" content="zigou23的小页面">
-    <meta name="web" content="cnm.pages.dev or thing.qsim.top">
-    <meta charset="UTF-8">
-    <link rel="icon" href="https://qsim.top/favicon.ico" sizes="64x64" type="image/png">
-    <style>
+
+<head>
+  <title>网站地址索引</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="zigou23">
+  <meta property="og:description" content="zigou23的小页面">
+  <meta name="web" content="cnm.pages.dev or thing.qsim.top">
+  <meta charset="UTF-8">
+  <link rel="icon" href="https://qsim.top/favicon.ico" sizes="64x64" type="image/png">
+  <style>
+    #address-list {
+      width: -webkit-fit-content;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 0 5px #ccc;
+    }
+
+    a {
+      display: block;
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    a:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* 媒体查询 */
+    @media screen and (max-width: 480px) {
       #address-list {
-        width: -webkit-fit-content;
-        padding: 10px;
-        background-color: #f5f5f5;
-        border-radius: 10px;
+        width: auto;
       }
-      
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      
-      li {
-        margin-bottom: 10px;
-        border-radius: 5px;
-        overflow: hidden;
-        box-shadow: 0 0 5px #ccc;
-      }
-      
+
       a {
-        display: block;
-        padding: 10px;
-        color: #333;
-        text-decoration: none;
-        transition: background-color 0.2s;
+        font-size: x-large;
       }
-      
-      a:hover {
-        background-color: #e0e0e0;
-      }
-      /* 媒体查询 */
-      @media screen and (max-width: 480px) {
-        #address-list {
-          width: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="address-list"></div>
+  <script>
+    // 获取地址列表的DOM元素
+    var addressListContainer = document.getElementById("address-list");
+
+    // 创建一个XMLHttpRequest对象
+    var xhr = new XMLHttpRequest();
+
+    // 设置请求方式和请求URL
+    xhr.open("GET", "address-list.json", true);
+
+    // 设置响应类型为JSON
+    xhr.responseType = "json";
+
+    // 监听XMLHttpRequest对象的readystatechange事件
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        // 请求成功，获取响应数据
+        var addressList = xhr.response;
+
+        // 创建一个<ul>元素
+        var ul = document.createElement("ul");
+
+        // 遍历JSON对象
+        for (var name in addressList) {
+          // 创建一个<li>元素
+          var li = document.createElement("li");
+
+          // 创建一个<a>元素，并设置它的href和innerText属性
+          var a = document.createElement("a");
+          a.href = addressList[name];
+          a.innerText = name;
+
+          // 将<a>元素添加到<li>元素中
+          li.appendChild(a);
+
+          // 将<li>元素添加到<ul>元素中
+          ul.appendChild(li);
         }
-        a{font-size: x-large;}
+
+        // 将<ul>元素添加到地址列表的DOM元素中
+        addressListContainer.appendChild(ul);
       }
-    </style>
-  </head>
-  <body>
-    <div id="address-list"></div>
-    <script>
-      // 获取地址列表的DOM元素
-      var addressListContainer = document.getElementById("address-list");
-      
-      // 创建一个XMLHttpRequest对象
-      var xhr = new XMLHttpRequest();
-      
-      // 设置请求方式和请求URL
-      xhr.open("GET", "address-list.json", true);
-      
-      // 设置响应类型为JSON
-      xhr.responseType = "json";
-      
-      // 监听XMLHttpRequest对象的readystatechange事件
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // 请求成功，获取响应数据
-          var addressList = xhr.response;
-          
-          // 创建一个<ul>元素
-          var ul = document.createElement("ul");
-          
-          // 遍历JSON对象
-          for (var name in addressList) {
-            // 创建一个<li>元素
-            var li = document.createElement("li");
-            
-            // 创建一个<a>元素，并设置它的href和innerText属性
-            var a = document.createElement("a");
-            a.href = addressList[name];
-            a.innerText = name;
-            
-            // 将<a>元素添加到<li>元素中
-            li.appendChild(a);
-            
-            // 将<li>元素添加到<ul>元素中
-            ul.appendChild(li);
-          }
-          
-          // 将<ul>元素添加到地址列表的DOM元素中
-          addressListContainer.appendChild(ul);
-        }
-      };
-      
-      // 发送XMLHttpRequest请求
-      xhr.send();
-    </script>
-  </body>
+    };
+
+    // 发送XMLHttpRequest请求
+    xhr.send();
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8984445099361458"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
