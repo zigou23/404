@@ -10,5 +10,6 @@
   "测速仪": "../speed/vel/",
   "流量消耗器": "../tools/llxhq/",
   "量子纠缠(x": "../3d/multipleWindow3dScene/",
-  "复原三阶魔方":"../game/RubikCube"
+  "复原三阶魔方":"../game/RubikCube/",
+  "boc汇率":"../rates/boc/"
 }
