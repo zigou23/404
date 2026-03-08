@@ -491,7 +491,7 @@ tbody td:first-child {
         <div class="rate-big" id="rate-big">—</div>
         <div class="rate-change" id="rate-change"></div>
       </div>
-      <div class="rate-hover-label" id="rate-hover-label">现汇卖出价（每100外币兑人民币）</div>
+      <div class="rate-hover-label" id="rate-hover-label">中间价（每100外币兑人民币）</div>
     </div>
     <div class="time-tabs" id="time-tabs">
       <button class="time-tab" data-range="7">1W</button>
@@ -660,8 +660,11 @@ async function loadHistory(currency, days) {
     const res = await fetch(`${API_BASE}/api/history-chart?currency=${currency}&days=${days}`);
     const json = await res.json();
     historyData = (json.data || []).map(d => ({
-      date: d.rate_date,
-      rate: d.sell_spot ?? d.buy_spot ?? d.mid_rate
+      date:      d.rate_date,
+      sell_spot: d.sell_spot,
+      buy_spot:  d.buy_spot,
+      mid_rate:  d.mid_rate,
+      rate:      d.mid_rate ?? d.sell_spot ?? d.buy_spot, // 优先用中间价
     })).filter(d => d.rate != null).sort((a,b) => a.date.localeCompare(b.date));
     renderChart();
   } catch(e) {
@@ -833,7 +836,7 @@ function setupChartHover() {
     tip.style.left = `${Math.min(tipX, rect.width - 160)}px`;
     tip.style.top  = `${Math.max(0, tipY)}px`;
 
-    hoverLabel.textContent = `${dateStr} · 现汇卖出价 ${v.toFixed(4)} 元`;
+    hoverLabel.textContent = `${dateStr} · 中间价 ${v.toFixed(4)} 元`;
   });
 
   wrap.addEventListener('mouseleave', () => {
@@ -842,7 +845,7 @@ function setupChartHover() {
     const dot   = document.getElementById('crosshair-dot');
     if (vLine) vLine.setAttribute('opacity','0');
     if (dot)   dot.setAttribute('opacity','0');
-    document.getElementById('rate-hover-label').textContent = '现汇卖出价（每100外币兑人民币）';
+    document.getElementById('rate-hover-label').textContent = `${dateStr} · 中间价 ${v.toFixed(4)} 元`;
   });
 }
 
