@@ -28,6 +28,26 @@
   --serif: 'Noto Serif SC', serif;
   --r: 10px; --r2: 6px;
 }
+[data-theme="light"] {
+  --ink:      #f6f8fa;
+  --ink2:     #ffffff;
+  --ink3:     #f0f2f5;
+  --line:     #d0d7de;
+  --line2:    #e8ecf0;
+  --dim:      #9198a1;
+  --muted:    #656d76;
+  --text:     #1f2328;
+  --text2:    #36393f;
+  --gold:     #b06000;
+  --gold-dim: rgba(176,96,0,0.10);
+  --gold-glow:rgba(176,96,0,0.20);
+  --red:      #d1242f;
+  --red-dim:  rgba(209,36,47,0.10);
+  --green:    #1a7f37;
+  --green-dim:rgba(26,127,55,0.10);
+}
+[data-theme="light"] body::after { display: none; }
+[data-theme="light"] .hdr { background: rgba(246,248,250,0.92);}
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body { background:var(--ink); color:var(--text); font-family:var(--mono); font-size:13px; line-height:1.5; min-height:100dvh; overflow-x:hidden; }
@@ -155,6 +175,12 @@ tbody td:first-child { text-align:left; }
 <header class="hdr">
   <div class="hdr-brand"><div class="hdr-pip"></div>中国银行 汇率</div>
   <div class="hdr-spacer"></div>
+  <button id="theme-btn" onclick="toggleTheme()"
+  style="background:var(--ink3);border:1px solid var(--line);color:var(--muted);
+         width:32px;height:32px;border-radius:8px;font-size:15px;
+         cursor:pointer;transition:all .2s;display:flex;align-items:center;
+         justify-content:center;flex-shrink:0"
+  title="切换日夜模式">🌙</button>
   <div class="hdr-clock" id="hdr-clock"></div>
 </header>
 
@@ -275,6 +301,26 @@ function tickClock(){
       hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' CST';
 }
 tickClock(); setInterval(tickClock,1000);
+//日夜切换
+function toggleTheme(){
+  const isLight = document.documentElement.dataset.theme === 'light';
+  document.documentElement.dataset.theme = isLight ? '' : 'light';
+  document.getElementById('theme-btn').textContent = isLight ? '🌙' : '☀️';
+  localStorage.setItem('theme', isLight ? 'dark' : 'light');
+}
+
+// 页面加载时恢复上次选择
+(function(){
+  const saved = localStorage.getItem('theme');
+  if(saved === 'light'){
+    document.documentElement.dataset.theme = 'light';
+    // btn 还没渲染，init后再设
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const btn = document.getElementById('theme-btn');
+      if(btn) btn.textContent = '☀️';
+    });
+  }
+})();
 
 // ── INIT — 读取 URL 参数 ──
 // 支持参数：
