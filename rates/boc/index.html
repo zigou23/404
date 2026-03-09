@@ -471,7 +471,7 @@ function renderChart(){
   let grid='';
   for(let i=0;i<=4;i++){
     const v=lo+(hi-lo)*(i/4), y=py(v);
-    grid+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="#21262d" stroke-width="1"/>`;
+    grid+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="rgba(128,128,128,0.15)" stroke-width="1"/>`;
     grid+=`<text x="${PL+3}" y="${(y-3).toFixed(1)}" fill="#484f58" font-size="8" font-family="IBM Plex Mono">${v.toFixed(3)}</text>`;
   }
   let xlabels='';
