@@ -7,9 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
 :root {
   --ink:      #0d1117;
   --ink2:     #161b22;
@@ -27,482 +24,127 @@
   --red-dim:  rgba(248,81,73,0.12);
   --green:    #3fb950;
   --green-dim:rgba(63,185,80,0.12);
-  --blue:     #58a6ff;
   --mono: 'IBM Plex Mono', monospace;
   --serif: 'Noto Serif SC', serif;
-  --r: 10px;
-  --r2: 6px;
+  --r: 10px; --r2: 6px;
 }
-
-/* ═══════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════ */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
-body {
-  background: var(--ink);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.5;
-  min-height: 100dvh;
-  overflow-x: hidden;
-}
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
-input, select { font-family: inherit; }
-a { color: inherit; text-decoration: none; }
+body { background:var(--ink); color:var(--text); font-family:var(--mono); font-size:13px; line-height:1.5; min-height:100dvh; overflow-x:hidden; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; }
+input,select { font-family:inherit; }
+body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:999; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px); }
 
-/* scanline texture */
-body::after {
-  content:'';
-  position:fixed; inset:0; pointer-events:none; z-index:999;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-}
-
-/* ═══════════════════════════════════════════
-   HEADER
-═══════════════════════════════════════════ */
-.hdr {
-  position: sticky; top:0; z-index:200;
-  background: rgba(13,17,23,0.92);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border-bottom: 1px solid var(--line);
-  height: 52px;
-  display: flex; align-items: center;
-  padding: 0 20px;
-  gap: 16px;
-}
-.hdr-brand {
-  font-family: var(--serif);
-  font-size: 15px; font-weight: 600;
-  color: var(--text);
-  display: flex; align-items: center; gap: 8px;
-  white-space: nowrap;
-}
-.hdr-pip {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 10px var(--gold-glow);
-  animation: breathe 2.4s ease-in-out infinite;
-}
-@keyframes breathe {
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.4;transform:scale(.75)}
-}
+.hdr { position:sticky; top:0; z-index:200; background:rgba(13,17,23,0.92); backdrop-filter:blur(20px) saturate(1.8); -webkit-backdrop-filter:blur(20px) saturate(1.8); border-bottom:1px solid var(--line); height:52px; display:flex; align-items:center; padding:0 20px; gap:16px; }
+.hdr-brand { font-family:var(--serif); font-size:15px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; white-space:nowrap; }
+.hdr-pip { width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold-glow); animation:breathe 2.4s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
 .hdr-spacer { flex:1; }
-.hdr-clock {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: .04em;
-  white-space: nowrap;
-}
+.hdr-clock { font-size:11px; color:var(--muted); letter-spacing:.04em; white-space:nowrap; }
 
-/* ═══════════════════════════════════════════
-   LAYOUT
-═══════════════════════════════════════════ */
-.page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 16px 80px;
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto auto 1fr;
-  gap: 16px;
-  align-items: start;
-}
-@media(max-width:860px){
-  .page { grid-template-columns:1fr; }
-  .col-right { order:2; }
-  .col-left-chart { order:1; }
-  .col-left-table { order:3; }
-}
-
+.page { max-width:1200px; margin:0 auto; padding:20px 16px 80px; display:grid; grid-template-columns:1fr 320px; grid-template-rows:auto auto 1fr; gap:16px; align-items:start; }
+@media(max-width:860px){ .page{grid-template-columns:1fr;} .col-right{order:2;} .col-left-chart{order:1;} .col-left-table{order:3;} }
 .col-left-chart { grid-column:1; }
-.col-right {
-  grid-column:2; grid-row:1/4;
-  position: sticky; top: 68px;
-}
+.col-right { grid-column:2; grid-row:1/4; position:sticky; top:68px; }
 .col-left-table { grid-column:1; }
-@media(max-width:860px){
-  .col-right { grid-column:1; grid-row:auto; position:static; }
-  .col-left-table { grid-column:1; }
-}
+@media(max-width:860px){ .col-right{grid-column:1;grid-row:auto;position:static;} .col-left-table{grid-column:1;} }
 
-/* ═══════════════════════════════════════════
-   CARD
-═══════════════════════════════════════════ */
-.card {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.card-hd {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--line2);
-  display: flex; align-items: center; gap: 10px;
-}
-.card-hd-title {
-  font-family: var(--serif);
-  font-size: 13px; font-weight: 600;
-  color: var(--text2);
-  flex: 1;
-}
-.card-hd-sub {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: .04em;
-}
+.card { background:var(--ink2); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+.card-hd { padding:14px 18px; border-bottom:1px solid var(--line2); display:flex; align-items:center; gap:10px; }
+.card-hd-title { font-family:var(--serif); font-size:13px; font-weight:600; color:var(--text2); flex:1; }
+.card-hd-sub { font-size:10px; color:var(--muted); letter-spacing:.04em; }
 
-/* ═══════════════════════════════════════════
-   CHART SECTION
-═══════════════════════════════════════════ */
-.chart-meta {
-  padding: 18px 20px 0;
-}
-.chart-pair {
-  font-size: 10px; color: var(--muted);
-  letter-spacing: .12em; text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.chart-rate-row {
-  display: flex; align-items: baseline; gap: 10px;
-  margin-bottom: 3px;
-}
-.chart-rate-num {
-  font-size: 32px; font-weight: 600;
-  color: var(--text);
-  letter-spacing: -.02em;
-  transition: color .2s;
-}
-.chart-rate-badge {
-  font-size: 12px;
-  padding: 2px 8px; border-radius: 4px;
-  font-weight: 500;
-}
+.chart-meta { padding:18px 20px 0; }
+.chart-pair { font-size:10px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:4px; }
+.chart-rate-row { display:flex; align-items:baseline; gap:10px; margin-bottom:3px; }
+.chart-rate-num { font-size:32px; font-weight:600; color:var(--text); letter-spacing:-.02em; transition:color .2s; }
+.chart-rate-badge { font-size:12px; padding:2px 8px; border-radius:4px; font-weight:500; }
 .badge-up   { color:var(--green); background:var(--green-dim); }
-.badge-down { color:var(--red);   background:var(--red-dim);   }
-.chart-hover-info {
-  font-size: 11px; color: var(--muted);
-  min-height: 16px;
-  transition: color .15s;
-}
+.badge-down { color:var(--red);   background:var(--red-dim); }
+.chart-hover-info { font-size:11px; color:var(--muted); min-height:16px; transition:color .15s; }
 
-/* time tabs */
-.chart-tabs {
-  display: flex; gap: 2px;
-  padding: 10px 20px 0;
-}
-.chart-tab {
-  padding: 4px 11px; border-radius: var(--r2);
-  font-size: 11px; font-weight: 500;
-  color: var(--muted);
-  letter-spacing: .05em;
-  transition: all .15s;
-}
+.chart-tabs { display:flex; gap:2px; padding:10px 20px 0; }
+.chart-tab { padding:4px 11px; border-radius:var(--r2); font-size:11px; font-weight:500; color:var(--muted); letter-spacing:.05em; transition:all .15s; }
 .chart-tab:hover { color:var(--text2); background:var(--ink3); }
 .chart-tab.active { color:var(--gold); background:var(--gold-dim); }
 
-/* svg chart */
-.chart-area {
-  padding: 8px 0 0;
-  height: 240px;
-  position: relative;
-  touch-action: none;
-  user-select: none;
-}
+.chart-area { padding:8px 0 0; height:240px; position:relative; touch-action:none; user-select:none; }
 #chart-svg { width:100%; height:100%; display:block; }
-.chart-tip {
-  position:absolute;
-  background:var(--ink3);
-  border:1px solid var(--line);
-  border-radius: var(--r2);
-  padding: 6px 10px;
-  font-size: 11px; color:var(--text2);
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .1s;
-  white-space:nowrap;
-  z-index:10;
-}
+.chart-tip { position:absolute; background:var(--ink3); border:1px solid var(--line); border-radius:var(--r2); padding:6px 10px; font-size:11px; color:var(--text2); pointer-events:none; opacity:0; transition:opacity .1s; white-space:nowrap; z-index:10; }
 .chart-tip.show { opacity:1; }
 
-/* ═══════════════════════════════════════════
-   CONVERTER (right panel)
-═══════════════════════════════════════════ */
-.conv-wrap { padding: 16px; }
-
-/* currency + amount row */
-.conv-row {
-  display: flex; align-items: stretch; gap: 8px;
-  margin-bottom: 4px;
-}
-.conv-amount {
-  flex: 1;
-  background: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: var(--r2);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 18px; font-weight: 500;
-  padding: 10px 12px;
-  outline: none;
-  transition: border-color .2s;
-  min-width: 0;
-}
-.conv-amount:focus { border-color: var(--gold); }
-.conv-cur-btn {
-  flex: 0 0 auto;
-  background: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: var(--r2);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 13px; font-weight: 500;
-  padding: 0 14px;
-  display: flex; align-items: center; gap: 6px;
-  transition: all .2s;
-  white-space: nowrap;
-  position: relative;
-}
+.conv-wrap { padding:16px; }
+.conv-row { display:flex; align-items:stretch; gap:8px; margin-bottom:4px; }
+.conv-amount { flex:1; background:var(--ink); border:1px solid var(--line); border-radius:var(--r2); color:var(--text); font-family:var(--mono); font-size:18px; font-weight:500; padding:10px 12px; outline:none; transition:border-color .2s; min-width:0; }
+.conv-amount:focus { border-color:var(--gold); }
+.conv-cur-btn { flex:0 0 auto; background:var(--ink); border:1px solid var(--line); border-radius:var(--r2); color:var(--text); font-family:var(--mono); font-size:13px; font-weight:500; padding:0 14px; display:flex; align-items:center; gap:6px; transition:all .2s; white-space:nowrap; }
 .conv-cur-btn:hover { border-color:var(--gold); color:var(--gold); }
 .conv-cur-btn .chevron { font-size:9px; color:var(--muted); }
+.conv-rate-label { font-size:10px; color:var(--muted); letter-spacing:.06em; text-align:right; padding:2px 4px 6px; min-height:20px; }
 
-/* rate type label */
-.conv-rate-label {
-  font-size: 10px; color: var(--muted);
-  letter-spacing: .06em;
-  text-align: right;
-  padding: 2px 4px 6px;
-  min-height: 20px;
-}
-
-/* swap bar */
-.conv-swap-bar {
-  display: flex; align-items: center; gap: 10px;
-  margin: 6px 0;
-}
+.conv-swap-bar { display:flex; align-items:center; gap:10px; margin:6px 0; }
 .conv-divider { flex:1; height:1px; background:var(--line); }
-.conv-swap-btn {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--ink3);
-  border: 1px solid var(--line);
-  color: var(--muted);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-  transition: all .2s;
-  flex-shrink: 0;
-}
+.conv-swap-btn { width:30px; height:30px; border-radius:50%; background:var(--ink3); border:1px solid var(--line); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:14px; transition:all .2s; flex-shrink:0; }
 .conv-swap-btn:hover { border-color:var(--gold); color:var(--gold); transform:rotate(180deg); }
 
-/* result box */
-.conv-result {
-  background: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: var(--r2);
-  padding: 14px;
-  margin-top: 10px;
-}
-.conv-result-type {
-  font-size: 10px; letter-spacing:.08em;
-  text-transform:uppercase;
-  margin-bottom:5px;
-}
+.conv-result { background:var(--ink); border:1px solid var(--line); border-radius:var(--r2); padding:14px; margin-top:10px; }
+.conv-result-type { font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:5px; }
 .conv-result-type.buy  { color:var(--green); }
 .conv-result-type.sell { color:var(--gold); }
 .conv-result-type.neutral { color:var(--muted); }
-.conv-result-num {
-  font-size: 22px; font-weight:600;
-  color: var(--text);
-  margin-bottom: 3px;
-}
-.conv-result-rate {
-  font-size: 10px; color:var(--muted);
-}
+.conv-result-num { font-size:22px; font-weight:600; color:var(--text); margin-bottom:3px; }
+.conv-result-rate { font-size:10px; color:var(--muted); }
 
-/* history note in converter */
-.conv-hist-note {
-  margin-top: 10px;
-  padding: 8px 10px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(212,160,23,.2);
-  border-radius: var(--r2);
-  font-size: 10px; color:var(--gold);
-  letter-spacing:.04em;
-  display:none;
-}
+.conv-hist-note { margin-top:10px; padding:8px 10px; background:var(--gold-dim); border:1px solid rgba(212,160,23,.2); border-radius:var(--r2); font-size:10px; color:var(--gold); letter-spacing:.04em; display:none; }
 .conv-hist-note.show { display:block; }
 
-.conv-disclaimer {
-  margin-top: 12px;
-  font-size: 10px; color:var(--dim);
-  line-height:1.7;
-  border-top:1px solid var(--line2);
-  padding-top:10px;
-}
+/* 分享按钮 */
+.share-btn { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:10px; padding:8px 12px; border-radius:var(--r2); background:var(--ink3); border:1px solid var(--line); color:var(--muted); font-size:11px; font-family:var(--mono); letter-spacing:.04em; transition:all .2s; cursor:pointer; }
+.share-btn:hover { border-color:var(--gold); color:var(--gold); }
+.share-btn.copied { border-color:var(--green); color:var(--green); background:var(--green-dim); }
 
-/* currency picker dropdown */
-.cur-picker {
-  position:fixed; inset:0; z-index:500;
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(4px);
-  display:none; align-items:flex-end;
-  justify-content:center;
-}
+.conv-disclaimer { margin-top:12px; font-size:10px; color:var(--dim); line-height:1.7; border-top:1px solid var(--line2); padding-top:10px; }
+
+.cur-picker { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:flex-end; justify-content:center; }
 .cur-picker.open { display:flex; }
-@media(min-width:500px){
-  .cur-picker { align-items:center; }
-}
-.cur-picker-box {
-  background:var(--ink2);
-  border:1px solid var(--line);
-  border-radius:var(--r) var(--r) 0 0;
-  width:100%; max-width:420px;
-  max-height:70vh;
-  display:flex; flex-direction:column;
-  overflow:hidden;
-  animation: slideUp .2s ease;
-}
-@media(min-width:500px){
-  .cur-picker-box { border-radius:var(--r); max-height:80vh; }
-}
-@keyframes slideUp {
-  from { transform:translateY(30px); opacity:0; }
-  to   { transform:translateY(0);    opacity:1; }
-}
-.cur-picker-hd {
-  padding:14px 16px;
-  border-bottom:1px solid var(--line);
-  display:flex; align-items:center; gap:10px;
-}
+@media(min-width:500px){ .cur-picker{align-items:center;} }
+.cur-picker-box { background:var(--ink2); border:1px solid var(--line); border-radius:var(--r) var(--r) 0 0; width:100%; max-width:420px; max-height:70vh; display:flex; flex-direction:column; overflow:hidden; animation:slideUp .2s ease; }
+@media(min-width:500px){ .cur-picker-box{border-radius:var(--r);max-height:80vh;} }
+@keyframes slideUp { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
+.cur-picker-hd { padding:14px 16px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; }
 .cur-picker-hd span { flex:1; font-family:var(--serif); font-size:14px; font-weight:600; }
-.cur-picker-close {
-  width:28px; height:28px; border-radius:50%;
-  background:var(--ink3); color:var(--muted);
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px;
-}
-.cur-picker-search {
-  padding:10px 16px;
-  border-bottom:1px solid var(--line2);
-}
-.cur-picker-search input {
-  width:100%;
-  background:var(--ink);
-  border:1px solid var(--line);
-  border-radius:var(--r2);
-  color:var(--text);
-  padding:8px 12px;
-  font-family:var(--mono);
-  font-size:13px;
-  outline:none;
-}
+.cur-picker-close { width:28px; height:28px; border-radius:50%; background:var(--ink3); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:16px; }
+.cur-picker-search { padding:10px 16px; border-bottom:1px solid var(--line2); }
+.cur-picker-search input { width:100%; background:var(--ink); border:1px solid var(--line); border-radius:var(--r2); color:var(--text); padding:8px 12px; font-family:var(--mono); font-size:13px; outline:none; }
 .cur-picker-search input:focus { border-color:var(--gold); }
-.cur-picker-list {
-  overflow-y:auto;
-  flex:1;
-  -webkit-overflow-scrolling:touch;
-}
-.cur-picker-item {
-  display:flex; align-items:center;
-  padding:11px 16px;
-  gap:12px;
-  border-bottom:1px solid var(--line2);
-  cursor:pointer;
-  transition:background .12s;
-}
+.cur-picker-list { overflow-y:auto; flex:1; -webkit-overflow-scrolling:touch; }
+.cur-picker-item { display:flex; align-items:center; padding:11px 16px; gap:12px; border-bottom:1px solid var(--line2); cursor:pointer; transition:background .12s; }
 .cur-picker-item:hover { background:var(--ink3); }
 .cur-picker-item.active { background:var(--gold-dim); }
-.cur-code {
-  font-size:13px; font-weight:600; color:var(--text);
-  min-width:38px;
-}
+.cur-code { font-size:13px; font-weight:600; color:var(--text); min-width:38px; }
 .cur-name { font-size:11px; color:var(--muted); flex:1; }
 .cur-rate { font-size:12px; color:var(--text2); }
 
-/* ═══════════════════════════════════════════
-   RATES TABLE
-═══════════════════════════════════════════ */
-.tbl-search-row {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--line2);
-  display:flex; gap:8px; align-items:center;
-}
-.tbl-search {
-  flex:1;
-  background:var(--ink);
-  border:1px solid var(--line);
-  border-radius:var(--r2);
-  color:var(--text);
-  padding:7px 10px;
-  font-family:var(--mono);
-  font-size:12px;
-  outline:none;
-}
+.tbl-search-row { padding:10px 16px; border-bottom:1px solid var(--line2); display:flex; gap:8px; align-items:center; }
+.tbl-search { flex:1; background:var(--ink); border:1px solid var(--line); border-radius:var(--r2); color:var(--text); padding:7px 10px; font-family:var(--mono); font-size:12px; outline:none; }
 .tbl-search:focus { border-color:var(--gold); }
-.tbl-updated {
-  font-size:10px; color:var(--dim);
-  white-space:nowrap;
-}
-.tbl-pip {
-  display:inline-block; width:5px; height:5px;
-  border-radius:50%; background:var(--green);
-  margin-right:4px;
-  animation:breathe 2.4s ease-in-out infinite;
-}
-
+.tbl-updated { font-size:10px; color:var(--dim); white-space:nowrap; }
+.tbl-pip { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--green); margin-right:4px; animation:breathe 2.4s ease-in-out infinite; }
 table { width:100%; border-collapse:collapse; }
-thead th {
-  padding:9px 14px;
-  text-align:right;
-  font-size:10px; color:var(--muted);
-  font-weight:500; letter-spacing:.06em; text-transform:uppercase;
-  background:var(--ink3);
-  white-space:nowrap;
-  position:sticky; top:52px; z-index:10;
-}
+thead th { padding:9px 14px; text-align:right; font-size:10px; color:var(--muted); font-weight:500; letter-spacing:.06em; text-transform:uppercase; background:var(--ink3); white-space:nowrap; position:sticky; top:52px; z-index:10; }
 thead th:first-child { text-align:left; }
-tbody tr {
-  border-top:1px solid var(--line2);
-  cursor:pointer;
-  transition:background .12s;
-}
+tbody tr { border-top:1px solid var(--line2); cursor:pointer; transition:background .12s; }
 tbody tr:hover { background:var(--ink3); }
 tbody tr.sel { background:var(--gold-dim) !important; }
-tbody td {
-  padding:10px 14px;
-  text-align:right;
-  font-size:12px; color:var(--text2);
-}
+tbody td { padding:10px 14px; text-align:right; font-size:12px; color:var(--text2); }
 tbody td:first-child { text-align:left; }
 .td-cn { font-family:var(--serif); font-size:12px; color:var(--text); }
 .td-cc { font-size:10px; color:var(--muted); margin-left:5px; }
-.nd    { color:var(--dim); }
+.nd { color:var(--dim); }
 
-/* ═══════════════════════════════════════════
-   STATES
-═══════════════════════════════════════════ */
-.state-box {
-  display:flex; align-items:center; justify-content:center;
-  padding:50px 20px; gap:10px;
-  color:var(--muted); font-size:12px;
-}
-.spin {
-  width:16px; height:16px;
-  border:2px solid var(--line);
-  border-top-color:var(--gold);
-  border-radius:50%;
-  animation:spin .7s linear infinite;
-  flex-shrink:0;
-}
+.state-box { display:flex; align-items:center; justify-content:center; padding:50px 20px; gap:10px; color:var(--muted); font-size:12px; }
+.spin { width:16px; height:16px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
 @keyframes spin { to{transform:rotate(360deg)} }
-
-/* ═══════════════════════════════════════════
-   SCROLLBAR
-═══════════════════════════════════════════ */
 ::-webkit-scrollbar { width:4px; height:4px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--line); border-radius:2px; }
@@ -510,20 +152,14 @@ tbody td:first-child { text-align:left; }
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="hdr">
-  <div class="hdr-brand">
-    <div class="hdr-pip"></div>
-    中国银行 汇率
-  </div>
+  <div class="hdr-brand"><div class="hdr-pip"></div>中国银行 汇率</div>
   <div class="hdr-spacer"></div>
   <div class="hdr-clock" id="hdr-clock"></div>
 </header>
 
-<!-- PAGE -->
 <div class="page">
 
-  <!-- ── CHART (left top) ── -->
   <div class="col-left-chart card">
     <div class="chart-meta">
       <div class="chart-pair" id="chart-pair">USD / CNY</div>
@@ -546,56 +182,42 @@ tbody td:first-child { text-align:left; }
     </div>
   </div>
 
-  <!-- ── CONVERTER (right sticky) ── -->
   <div class="col-right card">
     <div class="card-hd">
       <div class="card-hd-title">汇率换算</div>
       <div class="card-hd-sub" id="conv-mode-label">今日汇率</div>
     </div>
     <div class="conv-wrap">
-
-      <!-- FROM row (top) — 默认 CNY（买入时人民币在上） -->
       <div class="conv-row">
-        <input class="conv-amount" type="number" id="conv-amount"
-               value="100" min="0" step="any" inputmode="decimal"
-               oninput="onTopInput()">
+        <input class="conv-amount" type="number" id="conv-amount" value="100" min="0" step="any" inputmode="decimal" oninput="onTopInput()">
         <button class="conv-cur-btn" id="btn-from" onclick="openPicker('from')">
-          <span id="lbl-from">CNY</span>
-          <span class="chevron">▾</span>
+          <span id="lbl-from">CNY</span><span class="chevron">▾</span>
         </button>
       </div>
       <div class="conv-rate-label" id="conv-rate-label"></div>
-
-      <!-- SWAP -->
       <div class="conv-swap-bar">
         <div class="conv-divider"></div>
         <button class="conv-swap-btn" onclick="swapConv()" title="互换">⇅</button>
         <div class="conv-divider"></div>
       </div>
-
-      <!-- TO row (bottom) — 可直接输入，反向计算 -->
       <div class="conv-row">
-        <input class="conv-amount" type="number" id="conv-result-inp"
-               style="color:var(--gold)" inputmode="decimal"
-               oninput="onBottomInput()">
+        <input class="conv-amount" type="number" id="conv-result-inp" style="color:var(--gold)" inputmode="decimal" oninput="onBottomInput()">
         <button class="conv-cur-btn" id="btn-to" onclick="openPicker('to')">
-          <span id="lbl-to">USD</span>
-          <span class="chevron">▾</span>
+          <span id="lbl-to">USD</span><span class="chevron">▾</span>
         </button>
       </div>
-
-      <!-- RESULT BOX -->
       <div class="conv-result">
         <div class="conv-result-type neutral" id="conv-type-lbl">换算结果</div>
         <div class="conv-result-num" id="conv-result-num">—</div>
         <div class="conv-result-rate" id="conv-result-rate"></div>
       </div>
-
-      <!-- HISTORY NOTE (shown when chart is at a historical point) -->
       <div class="conv-hist-note" id="conv-hist-note">
         📅 显示 <span id="hist-note-date"></span> 历史汇率换算
       </div>
-
+      <!-- 分享按钮 -->
+      <button class="share-btn" id="share-btn" onclick="shareLink()">
+        🔗 复制分享链接
+      </button>
       <div class="conv-disclaimer">
         ✦ 换算在本地完成，不发送请求<br>
         ✦ 买入：外币→人民币（银行买入外币）<br>
@@ -605,26 +227,17 @@ tbody td:first-child { text-align:left; }
     </div>
   </div>
 
-  <!-- ── RATES TABLE (left bottom) ── -->
   <div class="col-left-table card">
-    <div class="card-hd">
-      <div class="card-hd-title">📊 今日汇率</div>
-    </div>
+    <div class="card-hd"><div class="card-hd-title">📊 今日汇率</div></div>
     <div class="tbl-search-row">
       <input class="tbl-search" type="text" placeholder="搜索货币…" oninput="filterTable(this.value)">
-      <div class="tbl-updated">
-        <span class="tbl-pip"></span>
-        <span id="tbl-updated">加载中…</span>
-      </div>
+      <div class="tbl-updated"><span class="tbl-pip"></span><span id="tbl-updated">加载中…</span></div>
     </div>
-    <div id="tbl-wrap">
-      <div class="state-box"><div class="spin"></div>加载今日汇率…</div>
-    </div>
+    <div id="tbl-wrap"><div class="state-box"><div class="spin"></div>加载今日汇率…</div></div>
   </div>
 
-</div><!-- .page -->
+</div>
 
-<!-- CURRENCY PICKER MODAL -->
 <div class="cur-picker" id="cur-picker" onclick="onPickerBg(event)">
   <div class="cur-picker-box">
     <div class="cur-picker-hd">
@@ -632,39 +245,28 @@ tbody td:first-child { text-align:left; }
       <button class="cur-picker-close" onclick="closePicker()">✕</button>
     </div>
     <div class="cur-picker-search">
-      <input type="text" id="picker-search" placeholder="搜索…"
-             oninput="filterPicker(this.value)" autocomplete="off">
+      <input type="text" id="picker-search" placeholder="搜索…" oninput="filterPicker(this.value)" autocomplete="off">
     </div>
     <div class="cur-picker-list" id="picker-list"></div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════
 const API = 'https://exchange-api.123060.xyz';
 
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let todayRates   = {};   // { USD:{buy_spot,sell_spot,buy_cash,sell_cash}, … }
-let currencies   = [];   // [{code,name_cn}]
-let historyData  = [];   // [{date,rate,sell_spot,buy_spot,mid_rate}]
+let todayRates   = {};
+let currencies   = [];
+let historyData  = [];
 let chartCur     = 'USD';
-let chartDays    = 180;
-let chartHoverIdx= -1;   // -1 = show latest
+let chartDays    = 30;
+let chartHoverIdx= -1;
+let convFrom     = 'CNY';
+let convTo       = 'USD';
+let lastEdited   = 'top';
+let pickerTarget = 'from';
+const CN = {};
 
-let convFrom = 'CNY';   // 默认人民币在上（买入方向）
-let convTo   = 'USD';
-let lastEdited = 'top'; // 'top'|'bottom' 记录最后编辑的输入框
-let pickerTarget = 'from'; // 'from'|'to'
-
-const CN = {};  // code→name_cn cache
-
-// ═══════════════════════════════════════════
-// CLOCK
-// ═══════════════════════════════════════════
+// ── CLOCK ──
 function tickClock(){
   document.getElementById('hdr-clock').textContent =
     new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',
@@ -673,10 +275,35 @@ function tickClock(){
 }
 tickClock(); setInterval(tickClock,1000);
 
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
+// ── INIT — 读取 URL 参数 ──
+// 支持参数：
+//   ?c=USD          图表货币
+//   ?from=CNY&to=USD 换算方向
+//   ?amt=500        金额
 async function init(){
+  const p = new URLSearchParams(location.search);
+
+  // 图表货币
+  const urlC = (p.get('c')||'').toUpperCase();
+  if(urlC) chartCur = urlC;
+
+  // 换算货币对
+  const urlFrom = (p.get('from')||'').toUpperCase();
+  const urlTo   = (p.get('to')||'').toUpperCase();
+  if(urlFrom) convFrom = urlFrom;
+  if(urlTo)   convTo   = urlTo;
+
+  // 金额
+  const urlAmt = p.get('amt');
+  if(urlAmt && !isNaN(parseFloat(urlAmt))){
+    document.getElementById('conv-amount').value = urlAmt;
+  }
+
+  // 同步 UI 标签
+  document.getElementById('lbl-from').textContent   = convFrom;
+  document.getElementById('lbl-to').textContent     = convTo;
+  document.getElementById('chart-pair').textContent = `${chartCur} / CNY`;
+
   await Promise.all([loadCurrencies(), loadToday()]);
   buildTable();
   doConvert();
@@ -684,13 +311,11 @@ async function init(){
   bindChartEvents();
 }
 
-// ═══════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════
+// ── DATA ──
 async function loadCurrencies(){
   try {
     const j = await fetch(`${API}/api/currencies`).then(r=>r.json());
-    currencies = j.data || [];
+    currencies = j.data||[];
     currencies.forEach(c=>{ CN[c.code]=c.name_cn; });
   } catch(e){ console.error(e); }
 }
@@ -700,7 +325,7 @@ async function loadToday(){
     const j = await fetch(`${API}/api/today`).then(r=>r.json());
     (j.data||[]).forEach(r=>{ todayRates[r.currency]=r; });
     const t = j.updated_at||'';
-    document.getElementById('tbl-updated').textContent = t ? `数据时间 ${t} (UTC+8)` : '今日';
+    document.getElementById('tbl-updated').textContent = t?`数据时间 ${t} UTC+8`:'今日';
   } catch(e){
     document.getElementById('tbl-updated').textContent = '加载失败';
   }
@@ -715,19 +340,56 @@ async function loadHistory(cur, days){
       sell_spot: d.sell_spot,
       buy_spot:  d.buy_spot,
       mid_rate:  d.mid_rate,
-      rate:      d.mid_rate ?? d.sell_spot ?? d.buy_spot ?? d.sell_cash ?? d.buy_cash,
+      sell_cash: d.sell_cash,
+      buy_cash:  d.buy_cash,
+      rate: d.mid_rate??d.sell_spot??d.buy_spot??d.sell_cash??d.buy_cash,
     })).filter(d=>d.rate!=null).sort((a,b)=>a.date.localeCompare(b.date));
-    chartHoverIdx = -1;
+    chartHoverIdx=-1;
     renderChart();
-    doConvert(); // refresh with latest
+    doConvert();
   } catch(e){ setChartState('error'); }
 }
 
-// ═══════════════════════════════════════════
-// CHART RENDERING
-// ═══════════════════════════════════════════
+// ── SHARE LINK ──
+// URL 格式：?c=USD&from=CNY&to=USD&amt=500
+// c    = 图表货币（同时也决定换算货币对里的外币）
+// from = 换算上方货币
+// to   = 换算下方货币
+// amt  = 金额（100时省略）
+function buildShareUrl(){
+  const base   = location.origin + location.pathname;
+  const amount = document.getElementById('conv-amount').value;
+  const p      = new URLSearchParams();
+
+  p.set('c', chartCur);
+  // from/to 如果就是默认 CNY/chartCur 则可省略，但为清晰起见全写
+  p.set('from', convFrom);
+  p.set('to',   convTo);
+  if(amount && parseFloat(amount) !== 100){
+    p.set('amt', amount);
+  }
+  return `${base}?${p.toString()}`;
+}
+
+function shareLink(){
+  const url = buildShareUrl();
+  const btn = document.getElementById('share-btn');
+  const ok  = ()=>{ btn.textContent='✓ 链接已复制'; btn.classList.add('copied'); setTimeout(()=>{ btn.textContent='🔗 复制分享链接'; btn.classList.remove('copied'); },2000); };
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(ok).catch(()=>fallbackCopy(url,ok));
+  } else { fallbackCopy(url,ok); }
+}
+function fallbackCopy(text,cb){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); cb(); } catch(e){}
+  document.body.removeChild(ta);
+}
+
+// ── CHART ──
 function setChartState(s){
-  const svg = document.getElementById('chart-svg');
+  const svg=document.getElementById('chart-svg');
   if(s==='loading') svg.innerHTML=`<text x="400" y="120" text-anchor="middle" fill="#484f58" font-family="IBM Plex Mono" font-size="12">加载中…</text>`;
   if(s==='error')   svg.innerHTML=`<text x="400" y="120" text-anchor="middle" fill="#f85149" font-family="IBM Plex Mono" font-size="12">暂无数据</text>`;
   document.getElementById('chart-rate-num').textContent='—';
@@ -737,145 +399,95 @@ function setChartState(s){
 
 function renderChart(){
   if(!historyData.length){ setChartState('error'); return; }
-  const data  = historyData;
-  const vals  = data.map(d=>d.rate/100);
-  const vMin  = Math.min(...vals), vMax=Math.max(...vals);
-  const vRange= vMax-vMin||.01;
-  const pad   = vRange*.1;
+  const data=historyData;
+  const vals=data.map(d=>d.rate/100);
+  const vMin=Math.min(...vals), vMax=Math.max(...vals);
+  const pad=(vMax-vMin||.01)*.1;
   const lo=vMin-pad, hi=vMax+pad;
-
   const W=800,H=240,PL=8,PR=8,PT=14,PB=36;
   const cw=W-PL-PR, ch=H-PT-PB;
   const px=i=>PL+(i/(data.length-1||1))*cw;
   const py=v=>PT+ch-((v-lo)/(hi-lo))*ch;
-
-  // line + fill
-  const lineD = vals.map((v,i)=>`${i===0?'M':'L'}${px(i).toFixed(1)} ${py(v).toFixed(1)}`).join(' ');
-  const fillD = lineD+` L${px(data.length-1).toFixed(1)} ${(PT+ch).toFixed(1)} L${PL} ${(PT+ch).toFixed(1)} Z`;
-
-  // first/last
-  const first=vals[0], last=vals[vals.length-1];
-  const diff=last-first, pct=((diff/first)*100).toFixed(2);
-  const isUp=diff>=0;
-  const lineCol = isUp?'#3fb950':'#f85149';
-
-  // grid
+  const lineD=vals.map((v,i)=>`${i===0?'M':'L'}${px(i).toFixed(1)} ${py(v).toFixed(1)}`).join(' ');
+  const fillD=lineD+` L${px(data.length-1).toFixed(1)} ${(PT+ch).toFixed(1)} L${PL} ${(PT+ch).toFixed(1)} Z`;
+  const isUp=vals[vals.length-1]>=vals[0];
+  const lineCol=isUp?'#3fb950':'#f85149';
   let grid='';
   for(let i=0;i<=4;i++){
     const v=lo+(hi-lo)*(i/4), y=py(v);
     grid+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="#21262d" stroke-width="1"/>`;
     grid+=`<text x="${PL+3}" y="${(y-3).toFixed(1)}" fill="#484f58" font-size="8" font-family="IBM Plex Mono">${v.toFixed(3)}</text>`;
   }
-
-  // x labels
   let xlabels='';
   const step=Math.max(1,Math.floor(data.length/5));
   for(let i=0;i<data.length;i+=step){
     const d=data[i].date;
-    const lbl=`${d.slice(0,4)}/${d.slice(4,6)}/${d.slice(6,8)}`;
-    xlabels+=`<text x="${px(i).toFixed(1)}" y="${(H-6).toFixed(1)}" fill="#484f58" font-size="8" font-family="IBM Plex Mono" text-anchor="middle">${lbl}</text>`;
+    xlabels+=`<text x="${px(i).toFixed(1)}" y="${(H-6).toFixed(1)}" fill="#484f58" font-size="8" font-family="IBM Plex Mono" text-anchor="middle">${d.slice(0,4)}/${d.slice(4,6)}/${d.slice(6,8)}</text>`;
   }
-
   const svg=document.getElementById('chart-svg');
-  svg.innerHTML=`
-    <defs>
-      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="${lineCol}" stop-opacity=".2"/>
-        <stop offset="100%" stop-color="${lineCol}" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
+  svg.innerHTML=`<defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${lineCol}" stop-opacity=".2"/><stop offset="100%" stop-color="${lineCol}" stop-opacity="0"/></linearGradient></defs>
     ${grid}
     <path d="${fillD}" fill="url(#g1)"/>
     <path d="${lineD}" fill="none" stroke="${lineCol}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
     ${xlabels}
     <line id="cv" x1="-1" y1="${PT}" x2="-1" y2="${PT+ch}" stroke="#30363d" stroke-width="1" stroke-dasharray="3,3"/>
-    <circle id="cd" cx="-10" cy="-10" r="4" fill="${lineCol}" stroke="#161b22" stroke-width="2"/>
-  `;
+    <circle id="cd" cx="-10" cy="-10" r="4" fill="${lineCol}" stroke="#161b22" stroke-width="2"/>`;
   svg._d={data,vals,px,py,lo,hi,ch,PT,PL,cw,W,H,lineCol};
-
-  // header: show last value
   updateChartHeader(data.length-1);
 }
 
 function updateChartHeader(idx){
-  const d = historyData[idx];
-  if(!d) return;
-  const v = d.rate/100;
-  const first = historyData[0].rate/100;
-  const diff  = v - first;
-  const pct   = ((diff/first)*100).toFixed(2);
-  const isUp  = diff>=0;
-
-  document.getElementById('chart-rate-num').textContent = v.toFixed(4);
-  const badge = document.getElementById('chart-rate-badge');
-  badge.textContent = `${isUp?'+':''}${diff.toFixed(4)} (${isUp?'+':''}${pct}%)`;
-  badge.className   = `chart-rate-badge ${isUp?'badge-up':'badge-down'}`;
-
-  const dd = d.date;
-  const ds = `${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
+  const d=historyData[idx]; if(!d) return;
+  const v=d.rate/100, first=historyData[0].rate/100;
+  const diff=v-first, pct=((diff/first)*100).toFixed(2), isUp=diff>=0;
+  document.getElementById('chart-rate-num').textContent=v.toFixed(4);
+  const badge=document.getElementById('chart-rate-badge');
+  badge.textContent=`${isUp?'+':''}${diff.toFixed(4)} (${isUp?'+':''}${pct}%)`;
+  badge.className=`chart-rate-badge ${isUp?'badge-up':'badge-down'}`;
+  const dd=d.date, ds=`${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
   document.getElementById('chart-hover-info').textContent =
-    idx===historyData.length-1
-      ? `中间价（每100外币兑人民币）`
-      : `${ds} · 中间价 ${v.toFixed(4)}`;
+    idx===historyData.length-1 ? '中间价（每100外币兑人民币）' : `${ds} · 中间价 ${v.toFixed(4)}`;
 }
 
-// ═══════════════════════════════════════════
-// CHART INTERACTION (mouse + touch)
-// ═══════════════════════════════════════════
 function bindChartEvents(){
-  const area = document.getElementById('chart-area');
-  const svg  = document.getElementById('chart-svg');
-  const tip  = document.getElementById('chart-tip');
+  const area=document.getElementById('chart-area');
+  const svg=document.getElementById('chart-svg');
+  const tip=document.getElementById('chart-tip');
 
-  function pointerAt(clientX, clientY){
-    const cd = svg._d; if(!cd) return;
-    const rect = svg.getBoundingClientRect();
-    const sx   = cd.W / rect.width;
-    const mx   = (clientX - rect.left) * sx;
-    const idx  = Math.max(0,Math.min(cd.data.length-1,
-                   Math.round(((mx-cd.PL)/cd.cw)*(cd.data.length-1))));
-
-    const v = cd.vals[idx];
-    const x = cd.px(idx), y = cd.py(v);
-
-    // crosshair
+  function pointerAt(clientX,clientY){
+    const cd=svg._d; if(!cd) return;
+    const rect=svg.getBoundingClientRect();
+    const mx=(clientX-rect.left)*(cd.W/rect.width);
+    const idx=Math.max(0,Math.min(cd.data.length-1,Math.round(((mx-cd.PL)/cd.cw)*(cd.data.length-1))));
+    const v=cd.vals[idx], x=cd.px(idx), y=cd.py(v);
     const cv=document.getElementById('cv'), cdot=document.getElementById('cd');
-    if(cv){ cv.setAttribute('x1',x); cv.setAttribute('x2',x); }
-    if(cdot){ cdot.setAttribute('cx',x); cdot.setAttribute('cy',y); }
-
-    // tooltip
-    const dd = cd.data[idx].date;
-    const ds = `${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
-    tip.textContent = `${ds}  ${v.toFixed(4)}`;
+    if(cv){cv.setAttribute('x1',x);cv.setAttribute('x2',x);}
+    if(cdot){cdot.setAttribute('cx',x);cdot.setAttribute('cy',y);}
+    const dd=cd.data[idx].date, ds=`${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
+    tip.textContent=`${ds}  ${v.toFixed(4)}`;
     tip.classList.add('show');
-    const tx = Math.min(clientX-rect.left+12, rect.width-130);
-    const ty = Math.max(0, clientY-rect.top-38);
-    tip.style.left=tx+'px'; tip.style.top=ty+'px';
-
-    // header + converter sync
+    tip.style.left=Math.min(clientX-rect.left+12,rect.width-130)+'px';
+    tip.style.top=Math.max(0,clientY-rect.top-38)+'px';
     updateChartHeader(idx);
-    chartHoverIdx = idx;
+    chartHoverIdx=idx;
     doConvert();
   }
-
   function pointerLeave(){
-    const cv=document.getElementById('cv'), cdot=document.getElementById('cd');
-    if(cv){ cv.setAttribute('x1','-1'); cv.setAttribute('x2','-1'); }
-    if(cdot){ cdot.setAttribute('cx','-10'); cdot.setAttribute('cy','-10'); }
+    const cv=document.getElementById('cv'),cdot=document.getElementById('cd');
+    if(cv){cv.setAttribute('x1','-1');cv.setAttribute('x2','-1');}
+    if(cdot){cdot.setAttribute('cx','-10');cdot.setAttribute('cy','-10');}
     tip.classList.remove('show');
-    chartHoverIdx = -1;
+    chartHoverIdx=-1;
     if(historyData.length) updateChartHeader(historyData.length-1);
     doConvert();
   }
-
-  area.addEventListener('mousemove', e=>pointerAt(e.clientX,e.clientY));
-  area.addEventListener('mouseleave', pointerLeave);
-  area.addEventListener('touchmove',  e=>{ e.preventDefault(); pointerAt(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
-  area.addEventListener('touchstart', e=>{ e.preventDefault(); pointerAt(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
-  area.addEventListener('touchend',   pointerLeave);
+  area.addEventListener('mousemove',e=>pointerAt(e.clientX,e.clientY));
+  area.addEventListener('mouseleave',pointerLeave);
+  area.addEventListener('touchmove',e=>{e.preventDefault();pointerAt(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+  area.addEventListener('touchstart',e=>{e.preventDefault();pointerAt(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+  area.addEventListener('touchend',pointerLeave);
 }
 
-// chart tab clicks
 document.getElementById('chart-tabs').addEventListener('click',e=>{
   const btn=e.target.closest('.chart-tab'); if(!btn) return;
   chartDays=parseInt(btn.dataset.d);
@@ -884,247 +496,157 @@ document.getElementById('chart-tabs').addEventListener('click',e=>{
   loadHistory(chartCur,chartDays);
 });
 
-// ═══════════════════════════════════════════
-// TABLE
-// ═══════════════════════════════════════════
+// ── TABLE ──
 let allRows=[];
 function buildTable(){
   const wrap=document.getElementById('tbl-wrap');
-  if(!Object.keys(todayRates).length){
-    wrap.innerHTML='<div class="state-box">暂无今日数据</div>'; return;
-  }
-  allRows = currencies.map(c=>{
-    const r=todayRates[c.code]; if(!r) return null;
-    return{code:c.code,name:c.name_cn,...r};
-  }).filter(Boolean);
-
-  wrap.innerHTML=`<table>
-    <thead><tr>
-      <th>货币</th>
-      <th>现汇买入</th><th>现钞买入</th>
-      <th>现汇卖出</th><th>现钞卖出</th>
-    </tr></thead>
-    <tbody id="tbl-body"></tbody>
-  </table>`;
+  if(!Object.keys(todayRates).length){wrap.innerHTML='<div class="state-box">暂无今日数据</div>';return;}
+  allRows=currencies.map(c=>{const r=todayRates[c.code];if(!r)return null;return{code:c.code,name:c.name_cn,...r};}).filter(Boolean);
+  wrap.innerHTML=`<table><thead><tr><th>货币</th><th>现汇买入</th><th>现钞买入</th><th>现汇卖出</th><th>现钞卖出</th></tr></thead><tbody id="tbl-body"></tbody></table>`;
   renderRows(allRows);
 }
-
 function renderRows(rows){
   const tb=document.getElementById('tbl-body'); if(!tb) return;
-  const fmt=v=>v!=null?`${(v/100).toFixed(4)}`:`<span class="nd">—</span>`;
-  tb.innerHTML=rows.map(r=>`
-    <tr data-code="${r.code}" onclick="selectCur('${r.code}')"
-        class="${r.code===chartCur?'sel':''}">
-      <td><span class="td-cn">${r.name}</span><span class="td-cc">${r.code}</span></td>
-      <td>${fmt(r.buy_spot)}</td><td>${fmt(r.buy_cash)}</td>
-      <td>${fmt(r.sell_spot)}</td><td>${fmt(r.sell_cash)}</td>
-    </tr>`).join('');
+  const fmt=v=>v!=null&&v>0?`${(v/100).toFixed(4)}`:`<span class="nd">—</span>`;
+  tb.innerHTML=rows.map(r=>`<tr data-code="${r.code}" onclick="selectCur('${r.code}')" class="${r.code===chartCur?'sel':''}"><td><span class="td-cn">${r.name}</span><span class="td-cc">${r.code}</span></td><td>${fmt(r.buy_spot)}</td><td>${fmt(r.buy_cash)}</td><td>${fmt(r.sell_spot)}</td><td>${fmt(r.sell_cash)}</td></tr>`).join('');
 }
-
-function filterTable(q){
-  q=q.toLowerCase();
-  renderRows(allRows.filter(r=>r.code.toLowerCase().includes(q)||r.name.includes(q)));
-}
-
+function filterTable(q){q=q.toLowerCase();renderRows(allRows.filter(r=>r.code.toLowerCase().includes(q)||r.name.includes(q)));}
 function selectCur(code){
   chartCur=code;
   document.getElementById('chart-pair').textContent=`${code} / CNY`;
-  document.querySelectorAll('#tbl-body tr').forEach(tr=>
-    tr.classList.toggle('sel',tr.dataset.code===code));
+  document.querySelectorAll('#tbl-body tr').forEach(tr=>tr.classList.toggle('sel',tr.dataset.code===code));
   loadHistory(code,chartDays);
 }
 
-// ═══════════════════════════════════════════
-// CURRENCY PICKER
-// ═══════════════════════════════════════════
+// ── PICKER ──
 let pickerFiltered=[];
-
 function openPicker(target){
   pickerTarget=target;
-  document.getElementById('picker-title').textContent = target==='from'?'选择源货币':'选择目标货币';
+  document.getElementById('picker-title').textContent=target==='from'?'选择源货币':'选择目标货币';
   document.getElementById('picker-search').value='';
   buildPickerList('');
   document.getElementById('cur-picker').classList.add('open');
   setTimeout(()=>document.getElementById('picker-search').focus(),100);
 }
-function closePicker(){
-  document.getElementById('cur-picker').classList.remove('open');
-}
-function onPickerBg(e){
-  if(e.target===document.getElementById('cur-picker')) closePicker();
-}
-
+function closePicker(){document.getElementById('cur-picker').classList.remove('open');}
+function onPickerBg(e){if(e.target===document.getElementById('cur-picker'))closePicker();}
 function buildPickerList(q){
   q=q.toLowerCase();
-  // always include CNY + all currencies
   const items=[{code:'CNY',name_cn:'人民币'},...currencies];
-  pickerFiltered=items.filter(c=>
-    c.code.toLowerCase().includes(q)||c.name_cn.includes(q)
-  );
-  const cur = pickerTarget==='from'?convFrom:convTo;
-  const list=document.getElementById('picker-list');
-  list.innerHTML=pickerFiltered.map(c=>{
+  pickerFiltered=items.filter(c=>c.code.toLowerCase().includes(q)||c.name_cn.includes(q));
+  const cur=pickerTarget==='from'?convFrom:convTo;
+  document.getElementById('picker-list').innerHTML=pickerFiltered.map(c=>{
     const r=todayRates[c.code];
-    const rateStr=r? `${(r.sell_spot/100).toFixed(4)}` : '';
-    return`<div class="cur-picker-item${c.code===cur?' active':''}"
-               onclick="pickCur('${c.code}')">
-      <span class="cur-code">${c.code}</span>
-      <span class="cur-name">${c.name_cn}</span>
-      <span class="cur-rate">${rateStr}</span>
-    </div>`;
+    const rs=r&&r.sell_spot>0?`${(r.sell_spot/100).toFixed(4)}`:'';
+    return`<div class="cur-picker-item${c.code===cur?' active':''}" onclick="pickCur('${c.code}')"><span class="cur-code">${c.code}</span><span class="cur-name">${c.name_cn}</span><span class="cur-rate">${rs}</span></div>`;
   }).join('');
 }
-
-function filterPicker(q){ buildPickerList(q); }
-
+function filterPicker(q){buildPickerList(q);}
 function pickCur(code){
   if(pickerTarget==='from'){
-    // enforce: one side must be CNY
-    if(code!=='CNY' && convTo!=='CNY'){
-      convTo='CNY';
-      document.getElementById('lbl-to').textContent='CNY';
-    }
-    convFrom=code;
-    document.getElementById('lbl-from').textContent=code;
+    if(code!=='CNY'&&convTo!=='CNY'){convTo='CNY';document.getElementById('lbl-to').textContent='CNY';}
+    convFrom=code;document.getElementById('lbl-from').textContent=code;
   } else {
-    if(code!=='CNY' && convFrom!=='CNY'){
-      convFrom='CNY';
-      document.getElementById('lbl-from').textContent='CNY';
-    }
-    convTo=code;
-    document.getElementById('lbl-to').textContent=code;
+    if(code!=='CNY'&&convFrom!=='CNY'){convFrom='CNY';document.getElementById('lbl-from').textContent='CNY';}
+    convTo=code;document.getElementById('lbl-to').textContent=code;
   }
-  closePicker();
-  lastEdited='top'; // 切换货币后从上框重新算
-  doConvert();
+  closePicker();lastEdited='top';doConvert();
 }
 
-// ═══════════════════════════════════════════
-// INPUT HANDLERS — 双向输入联动
-// ═══════════════════════════════════════════
-function onTopInput(){
-  lastEdited='top';
-  doConvert();
-}
-function onBottomInput(){
-  lastEdited='bottom';
-  doConvert();
-}
-
-// ═══════════════════════════════════════════
-// SWAP
-// ═══════════════════════════════════════════
+// ── CONVERTER ──
+function onTopInput(){lastEdited='top';doConvert();}
+function onBottomInput(){lastEdited='bottom';doConvert();}
 function swapConv(){
   [convFrom,convTo]=[convTo,convFrom];
   document.getElementById('lbl-from').textContent=convFrom;
   document.getElementById('lbl-to').textContent=convTo;
-  // 保持当前数值方向不变，重算另一框
   doConvert();
 }
 
-// ═══════════════════════════════════════════
-// CONVERTER — 双向，两框都可触发
-// ═══════════════════════════════════════════
 function getHistRates(){
-  if(chartHoverIdx>=0 && historyData[chartHoverIdx]){
+  if(chartHoverIdx>=0&&historyData[chartHoverIdx]){
     const d=historyData[chartHoverIdx];
-    return { histDate:d.date, sell:d.sell_spot, buy:d.buy_spot };
+    return{histDate:d.date,sell:d.sell_spot,buy:d.buy_spot,sell_cash:d.sell_cash,buy_cash:d.buy_cash};
   }
   return null;
 }
 
-// 根据 from/to/rates 算出换算系数：1单位from = ? 单位to
-function calcRate(from, to, buyRate, sellRate){
-  if(from==='CNY' && to==='CNY') return 1;
-  if(from==='CNY' && to!=='CNY'){
-    // CNY→外币：用卖出价
-    if(!sellRate) return null;
-    return 100/sellRate;           // 1 CNY = (100/sellRate) 外币
-  }
-  if(from!=='CNY' && to==='CNY'){
-    // 外币→CNY：用买入价
-    if(!buyRate) return null;
-    return buyRate/100;            // 1 外币 = (buyRate/100) CNY
-  }
-  // 外币→外币（保险）
+function calcRate(from,to,buyRate,sellRate){
+  if(from==='CNY'&&to==='CNY') return 1;
+  if(from==='CNY'&&to!=='CNY'){ if(!sellRate||sellRate<=0) return null; return 100/sellRate; }
+  if(from!=='CNY'&&to==='CNY'){ if(!buyRate||buyRate<=0)  return null; return buyRate/100; }
   return null;
 }
 
 function doConvert(){
   const from=convFrom, to=convTo;
   const hist=getHistRates();
-  const nonCNY = from==='CNY'?to:from;
-  const isHistMode = hist!==null && (nonCNY===chartCur);
+  const nonCNY=from==='CNY'?to:from;
+  const isHistMode=hist!==null&&(nonCNY===chartCur);
 
-  // 取汇率
-  let buyRate, sellRate;
+  let buyRate,sellRate;
   if(isHistMode){
-    buyRate=hist.buy; sellRate=hist.sell;
+    buyRate =(hist.buy  &&hist.buy >0)?hist.buy :hist.buy_cash;
+    sellRate=(hist.sell &&hist.sell>0)?hist.sell:hist.sell_cash;
   } else {
-    const r = from==='CNY' ? todayRates[to] : todayRates[from];
-    buyRate=r?.buy_spot; sellRate=r?.sell_spot;
+    const r=from==='CNY'?todayRates[to]:todayRates[from];
+    buyRate =r?.buy_spot >0?r.buy_spot :r?.buy_cash;
+    sellRate=r?.sell_spot>0?r.sell_spot:r?.sell_cash;
   }
 
-  // 历史提示
   const noteEl=document.getElementById('conv-hist-note');
   const modeLbl=document.getElementById('conv-mode-label');
-  if(isHistMode && hist){
-    const dd=hist.histDate;
-    const ds=`${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
+  if(isHistMode&&hist){
+    const dd=hist.histDate, ds=`${dd.slice(0,4)}/${dd.slice(4,6)}/${dd.slice(6,8)}`;
     document.getElementById('hist-note-date').textContent=ds;
-    noteEl.classList.add('show');
-    modeLbl.textContent=`历史 ${ds}`;
-  } else {
-    noteEl.classList.remove('show');
-    modeLbl.textContent='今日汇率';
-  }
+    noteEl.classList.add('show'); modeLbl.textContent=`历史 ${ds}`;
+  } else { noteEl.classList.remove('show'); modeLbl.textContent='今日汇率'; }
 
-  const rate = calcRate(from, to, buyRate, sellRate);
-  if(rate===null){ clearConv('该货币暂无汇率'); return; }
+  const rate=calcRate(from,to,buyRate,sellRate);
+  if(rate===null){clearConv('该货币暂无汇率');return;}
 
-  const topInp = document.getElementById('conv-amount');
-  const botInp = document.getElementById('conv-result-inp');
-
+  const topInp=document.getElementById('conv-amount');
+  const botInp=document.getElementById('conv-result-inp');
   if(lastEdited==='top'){
-    const amount=parseFloat(topInp.value);
-    if(isNaN(amount)||amount<0){ botInp.value=''; clearConvInfo(); return; }
-    botInp.value=(amount*rate).toFixed(4);
-    showConvInfo(from, to, amount, amount*rate, buyRate, sellRate, rate);
+    const amt=parseFloat(topInp.value);
+    if(isNaN(amt)||amt<0){botInp.value='';clearConvInfo();return;}
+    botInp.value=(amt*rate).toFixed(4);
+    showConvInfo(from,to,amt,amt*rate,buyRate,sellRate);
   } else {
-    const amount=parseFloat(botInp.value);
-    if(isNaN(amount)||amount<0){ topInp.value=''; clearConvInfo(); return; }
-    // 反向：bottom输入 → 算top
-    topInp.value=(amount/rate).toFixed(4);
-    showConvInfo(from, to, amount/rate, amount, buyRate, sellRate, rate);
+    const amt=parseFloat(botInp.value);
+    if(isNaN(amt)||amt<0){topInp.value='';clearConvInfo();return;}
+    topInp.value=(amt/rate).toFixed(4);
+    showConvInfo(from,to,amt/rate,amt,buyRate,sellRate);
   }
 }
 
-function showConvInfo(from, to, topVal, botVal, buyRate, sellRate, rate){
-  let typeLabel, typeClass, rateStr, rateLabelTxt;
-
-  if(from==='CNY' && to!=='CNY'){
-    typeLabel=`📥 现汇买入 · ${(sellRate/100).toFixed(4)} CNY/${to}`;
-    typeClass='buy';
-    rateStr=`1 CNY = ${(100/sellRate).toFixed(6)} ${to}`;
+function showConvInfo(from,to,topVal,botVal,buyRate,sellRate){
+  let typeLabel,typeClass,rateStr,rateLabelTxt;
+  if(from==='CNY'&&to!=='CNY'){
+    const r=sellRate||0;
+    typeLabel=`📥 现汇买入 · ${(r/100).toFixed(4)} CNY/${to}`;typeClass='buy';
+    rateStr=`1 CNY = ${(100/r).toFixed(6)} ${to}`;
     rateLabelTxt=`买入 ${CN[to]||to}，使用现汇卖出价`;
-  } else if(from!=='CNY' && to==='CNY'){
-    typeLabel=`📤 现汇卖出 · ${(buyRate/100).toFixed(4)} CNY/${from}`;
-    typeClass='sell';
-    rateStr=`1 ${from} = ${(buyRate/100).toFixed(6)} CNY`;
+  } else if(from!=='CNY'&&to==='CNY'){
+    const r=buyRate||0;
+    typeLabel=`📤 现汇卖出 · ${(r/100).toFixed(4)} CNY/${from}`;typeClass='sell';
+    rateStr=`1 ${from} = ${(r/100).toFixed(6)} CNY`;
     rateLabelTxt=`卖出 ${CN[from]||from}，使用现汇买入价`;
-  } else {
-    typeLabel='等额换算'; typeClass='neutral';
-    rateStr='1:1'; rateLabelTxt='';
-  }
-
+  } else { typeLabel='等额换算';typeClass='neutral';rateStr='1:1';rateLabelTxt=''; }
   const toName=to==='CNY'?'人民币':(CN[to]||to);
   document.getElementById('conv-result-num').textContent=`${botVal.toFixed(4)} ${toName}`;
   document.getElementById('conv-result-rate').textContent=rateStr;
   const tl=document.getElementById('conv-type-lbl');
-  tl.textContent=typeLabel; tl.className=`conv-result-type ${typeClass}`;
+  tl.textContent=typeLabel;tl.className=`conv-result-type ${typeClass}`;
   document.getElementById('conv-rate-label').textContent=rateLabelTxt;
 }
 
+function clearConv(msg=''){
+  document.getElementById('conv-result-inp').value='';
+  document.getElementById('conv-result-num').textContent=msg||'—';
+  document.getElementById('conv-result-rate').textContent='';
+  document.getElementById('conv-rate-label').textContent='';
+}
 function clearConvInfo(){
   document.getElementById('conv-result-num').textContent='—';
   document.getElementById('conv-result-rate').textContent='';
@@ -1133,9 +655,6 @@ function clearConvInfo(){
   document.getElementById('conv-rate-label').textContent='';
 }
 
-// ═══════════════════════════════════════════
-// START
-// ═══════════════════════════════════════════
 init();
 </script>
 </body>
