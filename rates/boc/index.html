@@ -257,6 +257,7 @@ const API = 'https://exchange-api.123060.xyz';
 let todayRates   = {};
 let currencies   = [];
 let historyData  = [];
+const historyCache = {};  // 缓存 key: "USD-180"
 let chartCur     = 'USD';
 let chartDays    = 30;
 let chartHoverIdx= -1;
@@ -332,6 +333,14 @@ async function loadToday(){
 }
 
 async function loadHistory(cur, days){
+  const key = `${cur}-${days}`;
+  if(historyCache[key]){
+    historyData = historyCache[key];
+    chartHoverIdx = -1;
+    renderChart();
+    doConvert();
+    return;
+  }
   setChartState('loading');
   try {
     const j = await fetch(`${API}/api/history-chart?currency=${cur}&days=${days}`).then(r=>r.json());
@@ -342,9 +351,10 @@ async function loadHistory(cur, days){
       mid_rate:  d.mid_rate,
       sell_cash: d.sell_cash,
       buy_cash:  d.buy_cash,
-      rate: d.mid_rate??d.sell_spot??d.buy_spot??d.sell_cash??d.buy_cash,
+      rate:      d.mid_rate ?? d.sell_spot ?? d.buy_spot ?? d.sell_cash ?? d.buy_cash,
     })).filter(d=>d.rate!=null).sort((a,b)=>a.date.localeCompare(b.date));
-    chartHoverIdx=-1;
+    historyCache[key] = historyData;  // 写入缓存
+    chartHoverIdx = -1;
     renderChart();
     doConvert();
   } catch(e){ setChartState('error'); }
