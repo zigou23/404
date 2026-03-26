@@ -9,80 +9,40 @@
     "text": "百度网盘"
   },
   {
-    "value": "https://imeres.baidu.com/imeres/ime-res/guanwang/img/UOS-fcitx-baidupinyin-64.zip",
-    "text": "百度输入法"
-  },
-  {
     "value": "https://img.alicdn.com/imgextra/i1/O1CN01xA4P9S1JsW2WEg0e1_!!6000000001084-2-tps-2880-560.png",
     "text": "阿里图片CDN域名加速"
-  },
-  {
-    "value": "https://gw.alipayobjects.com/os/volans-demo/f44c302e-b704-4a70-bcc6-0214e37ca256/MiniProgramStudio-1.17.4.exe",
-    "text": "支付宝开放平台"
-  },
-  {
-    "value": "https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif",
-    "text": "腾讯游戏"
-  },
-  {
-    "value": "https://aliyuncoccdncmnet-hd2.inter.iqiyi.com/videos/other/20220929/56/33/4284b480482b471cea482c3cad8b15a3.mp4",
-    "text": "爱奇艺视频（移动随心选定向）"
-  },
-  {
-    "value": "https://x19.gdl.netease.com/MCLauncher_publish_1.8.0.35383.exe",
-    "text": "网易(阿里CDN)"
-  },
-  {
-    "value": "https://mov.bn.netease.com/open-movie/nos/mp4/2015/11/26/SB8ECV1ST_sd.mp4",
-    "text": "网易(白云山CDN)"
   },
   {
     "value": "https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4",
     "text": "VIVO官网静态资源"
   },
   {
-    "value": "https://imgwsdl.vivo.com.cn/appstore/developer/soft/20210125/202101251051528awqa.apk",
-    "text": "VIVO应用商店"
-  },
-  {
-    "value": "https://lf9-cdn-tos.bytecdntp.com/cdn/yuntu-index/1.0.4/case/maiteng/detailbg.png",
-    "text": "字节跳动前端公共库"
-  },
-  {
-    "value": "https://cnbj0.fds.api.xiaomi.com/b2c-data-mishop/9b9d95e1ece27d5ec75205e5fe719ba5.apk",
-    "text": "小米应用商店"
-  },
-  {
-    "value": "https://consumer-img.huawei.com/content/dam/huawei-cbg-site/common/mkt/mobileservices/new-2022/download/com.huawei.appmarket.2201041539.apk",
-    "text": "华为应用商店"
-  },
-  {
-    "value": "https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7140/MobileMusic7140_0140068.apk",
-    "text": "咪咕音乐"
-  },
-  {
-    "value": "https://download.mcloud.139.com/storageWeb/servlet/downloadServlet?code=S0IxSTExb2pZNmg3T3IyMzIxN3JsbXk1OE5R&un=EF689F6284A13008BE1FFBE700C325DA1B384EE23C1229EC9BDB1986AFDF3E6D&dom=D961&rate=0&txType=0",
-    "text": "中国移动云盘（原和彩云）"
-  },
-  {
-    "value": "https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/5ca444c333bf4727babc7d154aabe559.mp4",
-    "text": "天翼云服务器（中国电信旗下）"
-  },
-  {
-    "value": "https://dh5.cntv.myhwcdn.cn/asp/h5e/hls/1200/0303000a/3/default/ec48b9f8c76e49af842d4942914ad663/1.ts",
-    "text": "CCTV"
-  },
-  {
     "value": "https://img-home.csdnimg.cn/images/20231219024442.png",
-    "text": "CSDN"
+    "text": "CSDN图片1home"
+  },
+  {
+    "value": "https://i-operation.csdnimg.cn/images/ce3e13f1fb5c478085297da17f371c3f.png",
+    "text": "CSDN图片2鸿蒙"
+  },
+  {
+    "value": "https://i-blog.csdnimg.cn/direct/2fc44a9edc7e4a86a9bfc371928d464e.gif?x-oss-process=image/resize,m_fixed,image/format,png",
+    "text": "CSDN-gif3blog"
+  },
+  {
+    "value": "https://csdnimg.cn/release/blogv2/dist/pc/img/runCode/bg-box.gif",
+    "text": "CSDN-gif4"
   },
   {
     "value": "https://cdn-static.gitcode.com/assets/index-0e695a73.js",
     "text": "CSDN-gitcode cdn加速服务"
   },
   {
-    "value": "空1",
-    "text": ""
+    "value": "https://course.csdnimg.cn/asset/28fb4b13d23de24f4729caf791e1d788/play_video/9258db91b5c3ab5a9b96688741a9cd30_0_12.ts",
+    "text": "CSDN课程ts1(可能失效)"
+  },
+  {
+    "value": "https://course.csdnimg.cn/asset/28fb4b13d23de24f4729caf791e1d788/play_video/9258db91b5c3ab5a9b96688741a9cd30_0_1.ts",
+    "text": "CSDN课程ts2(可能失效)"
   },
   {
     "value": "空2",
